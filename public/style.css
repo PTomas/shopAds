@@ -1,0 +1,81 @@
+h1, label, p {
+    font-family: 'Work Sans', sans-serif;
+    color: white;
+}
+
+a {
+    text-decoration: none;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50%;
+    
+}
+
+.flex-box {
+    background-color: darkslategrey;
+    border-radius: 2px;
+    width: 300px;
+    padding-top: 30px;
+    padding-bottom: 75px;
+}
+
+.row0 {
+    flex-direction: column;
+    align-items: center;
+    display: flex !important;
+}
+
+.row1 {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: flex !important;
+}
+
+.row1 .username {
+    width: 200px;
+    align-self: center;
+}
+
+.row1 .elabel {
+    width: 200px;
+    align-self: center;
+}
+
+.row2 {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: flex !important;
+}
+
+.row2 .password {
+    width: 200px;
+    align-self: center;
+}
+
+.row2 .plabel {
+    width: 200px;
+    align-self: center;
+}
+.row3 {
+    flex-direction: column;
+    align-items: center;
+    display: flex !important;
+    padding: 15px;
+}
+
+#submit {
+    font-family: 'Work Sans', sans-serif;
+}
+
+.row4 {
+    flex-direction: column;
+    align-items: center;
+    display: flex !important;
+    justify-content: center;
+}

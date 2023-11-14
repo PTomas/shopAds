@@ -1,0 +1,12 @@
+h1 {
+    font-family: 'Work Sans', sans-serif;
+    color: white;
+}
+
+.flex-container1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: darkslategrey;
+}
+
