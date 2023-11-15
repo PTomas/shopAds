@@ -40,9 +40,15 @@ app.post('/homepage', async function(req, res) {
   const email = req.body.email;
   const password = req.body.password;
   console.log(req.body.name);
-  const newUser = await createUser(name, email, password)
-  console.log(newUser);
-  res.sendFile(path.join(__dirname, "/public/homePage.html"));
+  const users = await selectUser(email)   
+  if(users === null){
+    const newUser = await createUser(name, email, password)
+    console.log(newUser);
+    res.sendFile(path.join(__dirname, "/public/homePage.html"));
+  }else{
+    console.log("error");
+  }
+  
 });
 
 app.post('/signup', async function(req, res) {

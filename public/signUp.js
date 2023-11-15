@@ -1,21 +1,15 @@
 var pass1;
 var pass2;
-
-function readPassword1(elem) {
-    console.log(elem.value);
-    pass1 = elem.value;
-    //...
-}
-
-function readPassword2(elem) {
-    console.log(elem.value);
-    pass2 = elem.value;
-//...
-}
+console.log("working");
 
 document.getElementById("submit").onclick = function(){
-    if(pass1 == pass2){
-        document.getElementById("form").submit();
+    pass1= document.querySelector(".password1").value;
+    console.log(pass1);
+    pass2= document.querySelector(".password2").value;
+    console.log(pass2);
+    if(pass1 === pass2){
+        console.log("same")
+        document.getElementById("form").btnSubmit();
     }
 };
 
