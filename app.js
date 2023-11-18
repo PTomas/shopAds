@@ -2,8 +2,9 @@ import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
 import { fileURLToPath } from 'url';
+import mongoose from 'mongoose';
+import User from './models/user.js'
 
-import { getUsers, selectUser, createUser } from './database.js'
 import { error } from 'console';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -20,19 +21,26 @@ app.use(bodyParser.json());
 
 const port = process.env.PORT || 3000;
 
-const emails = [];
-const passwords = [];
+const dbURI = 'mongodb+srv://ptomas14:Runningtree2@shopusersdb.d6kumdz.mongodb.net/shopUsersDB?retryWrites=true&w=majority';
+mongoose.connect(dbURI)
+  .then((result) => app.listen(port))
+  .catch((err) => console.log(err))
 
 app.post('/login', async function(req, res) {
   const email = req.body.email;
   const password = req.body.password;
-  const users = await selectUser(email, password)   
-  if(users === undefined){
-    console.log("error")
-  }else{
-    console.log(users);
-    res.sendFile(path.join(__dirname, "/public/homePage.html"));
-  }
+  User.countDocuments({email: email, password: password})
+    .then((result) => {
+      if(result > 0){
+        res.sendFile(path.join(__dirname, "/public/homePage.html"));
+      }else{
+        console.log('user not found')
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    
 });
 
 app.post('/homepage', async function(req, res) {
@@ -40,14 +48,26 @@ app.post('/homepage', async function(req, res) {
   const email = req.body.email;
   const password = req.body.password;
   console.log(req.body.name);
-  const users = await selectUser(email)   
-  if(users === null){
-    const newUser = await createUser(name, email, password)
-    console.log(newUser);
-    res.sendFile(path.join(__dirname, "/public/homePage.html"));
-  }else{
-    console.log("error");
-  }
+  User.countDocuments({email: email, password: password})
+    .then((result) => {
+      if(result > 0){
+        res.sendFile(path.join(__dirname, "/public/signUp.html"));
+      }else{
+        const user = new User({
+          name: name,
+          email: email,
+          password: password
+        })
+        user.save()
+          .then((result) => {
+            console.log(result);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+          res.sendFile(path.join(__dirname, "/public/homePage.html"));
+      }
+    })
   
 });
 
@@ -59,6 +79,6 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, "/public/signIn.html"));
 });
 
-app.listen(port, function () {
-  console.log('Server started at http://localhost:' + port);
-});
+// app.listen(port, function () {
+//   console.log('Server started at http://localhost:' + port);
+// });
