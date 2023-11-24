@@ -1,3 +1,5 @@
+google.setOnLoadCallback(getMyFeed);
+
 var feedUrl = "http://www.google.com/calender/feeds/default/public/full";
 
 function setUpMyService() {
