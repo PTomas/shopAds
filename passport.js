@@ -4,7 +4,7 @@ const User = require('./models/user.js')
 
 const GOOGLE_CLIENT_ID = '305484461229-s65eo0ucnnitc1ocaavia4uk8sbgfo5h.apps.googleusercontent.com';
 const GOOGLE_CLIENT_SECRET = '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';
-const absoluteURI = "https://git.heroku.com/habitualbuy.git/"
+const absoluteURI = "https://git.heroku.com/habitualbuy.git"
 
 module.exports = function(passport){
     passport.use(new GoogleStrategy({
