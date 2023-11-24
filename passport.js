@@ -4,13 +4,13 @@ const User = require('./models/user.js')
 
 const GOOGLE_CLIENT_ID = '305484461229-s65eo0ucnnitc1ocaavia4uk8sbgfo5h.apps.googleusercontent.com';
 const GOOGLE_CLIENT_SECRET = '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';
-  
+const absoluteURI = "https://git.heroku.com/habitualbuy.git/"
 
 module.exports = function(passport){
     passport.use(new GoogleStrategy({
         clientID: GOOGLE_CLIENT_ID,
         clientSecret: GOOGLE_CLIENT_SECRET,
-        callbackURL: "/auth/google/callback"
+        callbackURL: absoluteURI + "/auth/google/callback"
       },
       async(acessToken, refreshToken, profile, done) => {
         const newUser = {
