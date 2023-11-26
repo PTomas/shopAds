@@ -1,6 +1,7 @@
 const express = require('express')
 const passport = require('passport')
 const path = require('path');
+const passportConfig = require('../passport.js')
 const router = express.Router()
 
 console.log('works')

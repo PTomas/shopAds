@@ -6,10 +6,10 @@ const url = require('url');
 const mongoose = require('mongoose');
 const User = require('./models/user.js');
 const cors = require('cors');
-const exhbs = require('express-handlebars')
+const exphbs = require('express-handlebars')
 const { error } = require('console');
 const passport = require('passport');
-const passportConfig = require('./passport.js')
+const { passportConfig, getAdSenseData } = require('./passport.js')
 
 
 
@@ -37,6 +37,15 @@ app.use(session({
   saveUninitialized: false,
   cookie: { secure: true }
 }))
+
+app.engine('.hbs', exphbs({defaultLayout: './public/homePage', extname: '.hbs'}));
+app.set('view engine', '.hbs');
+
+// Set up a route to initiate the OAuth flow
+
+
+// Set up a route to handle the OAuth callback
+
 
 app.use(passport.initialize());
 app.use(passport.session());
