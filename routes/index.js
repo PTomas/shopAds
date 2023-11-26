@@ -9,12 +9,16 @@ router.use(require('express-session')({ secret: 'aquaman', resave: true, saveUni
 router.use(passport.initialize());
 router.use(passport.session());
 
+router.get('/', function (req, res) {
+    res.render("googleAuth");
+  });
+
 router.get('/homepage', (req, res) => {
 
     const userData = req.session.user || {};
     const adsenseData = req.session.adsenseData || {};
     console.log({ user: userData, adsenseData });
-    res.sendFile(path.join(__dirname, "../public/homePage.html"));
+    res.render(homePage);
 })
 
 module.exports = router

@@ -64,9 +64,7 @@ mongoose.connect(dbURI)
 //   res.sendFile(path.join(__dirname, "/public/homePage.html"));
 // });
 
-app.get('/', function (req, res) {
-  res.render("googleAuth");
-});
+
 
 // app.listen(port, function () {
 //   console.log('Server started at http://localhost:' + port);
