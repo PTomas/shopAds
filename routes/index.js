@@ -18,7 +18,7 @@ router.get('/homepage', (req, res) => {
     const userData = req.session.user || {};
     const adsenseData = req.session.adsenseData || {};
     console.log({ user: userData, adsenseData });
-    res.render(homePage);
+    res.render("homePage");
 })
 
 module.exports = router
