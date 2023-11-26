@@ -86,4 +86,4 @@ function passportConfig(passport){
     //   });
 }
 
-module.exports = { passportConfig, getAdSenseData }
+module.exports = { passportConfig }

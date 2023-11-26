@@ -1,7 +1,7 @@
 const express = require('express')
 const passport = require('passport')
 const path = require('path');
-const { passportConfig, getAdSenseData } = require('../passport.js')
+const { passportConfig } = require('../passport.js')
 const { ensureAuth } = require('../middleware/isAuth.js')
 const router = express.Router()
 
