@@ -9,7 +9,7 @@ const cors = require('cors');
 const exphbs = require('express-handlebars')
 const { error } = require('console');
 const passport = require('passport');
-const { passportConfig, getAdSenseData } = require('./passport.js')
+const { passportConfig } = require('./passport.js')
 
 
 
@@ -38,7 +38,7 @@ app.use(session({
   cookie: { secure: true }
 }))
 
-app.engine('.hbs', exphbs({defaultLayout: './public/homePage', extname: '.hbs'}));
+app.engine('.hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
 app.set('view engine', '.hbs');
 
 // Set up a route to initiate the OAuth flow
@@ -65,7 +65,7 @@ mongoose.connect(dbURI)
 // });
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, "/public/googleAuth.html"));
+  res.render("googleAuth");
 });
 
 // app.listen(port, function () {
