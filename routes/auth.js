@@ -5,7 +5,7 @@ const passportConfig = require('../passport.js')
 const router = express.Router()
 
 console.log('works')
-router.post('/google', passport.authenticate('google', { scope: ['profile'] }))
+router.post('/google', passport.authenticate('google', { scope: ['profile',  'https://www.googleapis.com/auth/adsensehost'] }))
 
 router.get('/google/callback', passport.authenticate('google', { failureRedirect:
 '/'}), (req, res) => {

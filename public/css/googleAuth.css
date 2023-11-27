@@ -3,16 +3,23 @@ h1, p {
     color: white;
 }
 
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} 
+
 .modal {
+    display: flex;
     background-color: darkslategrey;
     border-radius: 2px;
     width: 300px;
     padding-top: 30px;
     height: 500px;
-    /* position: absolute; */
+    position: absolute;
     top:50%;
-    left: 50%;
-    transform: translate(-50%);
+    justify-content: center;
+    align-items: center;
     display: block;
 }
 

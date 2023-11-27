@@ -5,24 +5,19 @@ const express = require('express');
 const axios = require('axios');
 const User = require('./models/user.js')
 
-const router = express.Router()
-
-router.use(require('express-session')({ secret: 'aquaman', resave: true, saveUninitialized: true }));
-router.use(passport.initialize());
-router.use(passport.session());
-
 const GOOGLE_CLIENT_ID = '305484461229-s65eo0ucnnitc1ocaavia4uk8sbgfo5h.apps.googleusercontent.com';
 const GOOGLE_CLIENT_SECRET = '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';
-const absoluteURI = "https://habitualbuy-b8ff67b7526e.herokuapp.com"
+const absoluteURI = "http://localhost:3000"
+const absoluteURI1 ="https://habitualbuy-b8ff67b7526e.herokuapp.com"
 
 function passportConfig(passport){
     const oauth2Client = passport.use(new GoogleStrategy({
         clientID: GOOGLE_CLIENT_ID,
         clientSecret: GOOGLE_CLIENT_SECRET,
-        callbackURL: absoluteURI + "/auth/google/callback",
-        scopes: ['https://www.googleapis.com/auth/adsensehost']
+        callbackURL: absoluteURI1 + "/auth/google/callback",
+        scopes: ['https://www.googleapis.com/host/adsensehost']
       },
-      async(acessToken, refreshToken, profile, done) => {
+      async(accessToken, refreshToken, profile, done) => {
         const newUser = {
             googleId: profile.id,
             displayName: profile.displayName,
@@ -45,8 +40,9 @@ function passportConfig(passport){
             console.log(err)
         }
 
-        const adsenseData = await getAdSenseData(accessToken);
-        req.session.adsenseData = adsenseData;
+      
+        const adsenseData = await getAdSenseData(accessToken, refreshToken );
+        console.log(adsenseData);
 
       }));
      
@@ -60,21 +56,28 @@ function passportConfig(passport){
         })
       })
 
-      async function getAdSenseData(accessToken) {
+      async function getAdSenseData(accessToken, refreshToken) {
         try {
-          const response = await axios.get('https://www.googleapis.com/adsensehost/v4.1/reports', {
+          const response = await axios.get('https://www.googleapis.com/adsensehost/v4.1/accounts', {
             headers: {
-              Authorization: `Bearer ${accessToken}`,
+              Authorization: `Bearer: ${refreshToken}`,
             },
             // Add any additional parameters or configurations needed for your AdSense API request
           });
       
           return response.data; // Adjust this based on the actual structure of AdSense API response
         } catch (error) {
-          console.error('Error fetching AdSense data:', error.message);
-          return null;
+          if (error.response && error.response.status === 403) {
+            // If the error is due to token expiration, handle token refreshing here
+            // ...
+          } else {
+            console.error('Error fetching AdSense data:', error.message);
+            return null;
+          }
         }
       }
+      
+      
     // app.get('/auth/google', 
     //   passport.authenticate('google', { scope : ['profile', 'email'] }));
      

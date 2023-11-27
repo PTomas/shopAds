@@ -17,7 +17,8 @@ const { passportConfig } = require('./passport.js')
 // const __dirname = path.dirname(__filename);
 
 const app = express();
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static("public"));
 
 app.use(bodyParser.urlencoded({
   extended: false
@@ -33,27 +34,23 @@ credentials: true,}));
 
 app.use(session({
   secret: 'aquaman',
-  resave: true,
+  resave: false,
   saveUninitialized: false,
   cookie: { secure: true }
 }))
 
-app.engine('.hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
+app.use('/', require('./routes/index.js'));
+app.use('/auth', require('./routes/auth.js'));
+
+app.set('views', path.join(__dirname, 'views'));
+
+app.engine('.hbs', exphbs.engine({defaultLayout: 'main', extname: '.hbs'}));
 app.set('view engine', '.hbs');
-
-// Set up a route to initiate the OAuth flow
-
-
-// Set up a route to handle the OAuth callback
-
 
 app.use(passport.initialize());
 app.use(passport.session());
 
 passportConfig(passport);
-
-app.use('/', require('./routes/index.js'));
-app.use('/auth', require('./routes/auth.js'));
 
 const dbURI = 'mongodb+srv://ptomas14:Runningtree2@shopusersdb.d6kumdz.mongodb.net/shopUsersDB?retryWrites=true&w=majority';
 mongoose.connect(dbURI)
