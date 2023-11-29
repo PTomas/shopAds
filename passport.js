@@ -61,13 +61,13 @@ function passportConfig(passport){
         accountId: profile.id
       };
 
-      Data.accounts.get(params, (err, res) => {
-        if (err) {
-          console.log(err)
-          throw err;
-        }
-        console.log(res)
-      })
+      // Data.accounts.get(params, (err, res) => {
+      //   if (err) {
+      //     console.log(err)
+      //     throw err;
+      //   }
+      //   console.log(res)
+      // })
         // const adsenseData = await getAdSenseData(accessToken, refreshToken);
         // console.log(adsenseData);
       });
