@@ -18,6 +18,8 @@ h1, p {
     height: 500px;
     position: absolute;
     top:50%;
+    margin-left: auto;
+    transform: translate(100%, 0);
     justify-content: center;
     align-items: center;
     display: block;
