@@ -21,7 +21,7 @@ function passportConfig(passport){
         clientID: GOOGLE_CLIENT_ID,
         clientSecret: GOOGLE_CLIENT_SECRET,
         accessTokenURL: "https://oauth2.googleapis.com/token",
-        callbackURL: absoluteURI + "/auth/google/callback",
+        callbackURL: absoluteURI1 + "/auth/google/callback",
         scopes: ['https://www.googleapis.com/host/adsensehost']
       },
       async(accessToken, refreshToken, profile, done) => {
