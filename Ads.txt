@@ -1,2 +1,2 @@
 User-agent: Mediapartners-Google
-Disallow: /~views/googleAuth.hbs
+Disallow: /views/googleAuth.hbs
