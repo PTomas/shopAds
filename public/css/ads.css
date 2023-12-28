@@ -1,0 +1,15 @@
+.cardContainer {
+    display: flex;
+    margin-left: 10%;
+    margin-right: 10%;
+    width: auto;
+}
+
+.card {
+    width: 25%;
+    height: 25px;
+}
+
+.card-title {
+    padding: 10px;
+}

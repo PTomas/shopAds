@@ -3,9 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=\, initial-scale=1.0">
+    <script type="text/x-handlebars" src="/js/ads.js" defer></script>
     <title>Document</title>
 </head>
 <body>
+    
     <h1>Ads go here.</h1>
+    <div class="cardContainer">
+       
+    </div>
 </body>
 </html>
+<script>
+console.log("works")
+
+var answers = [{
+    "adData": {{{json adData}}}
+}]
+
+let cardContainer;   
+
+function createCard(answers) {
+    let card = document.createElement('div');
+    card.className = 'card shadow cursor-pointer';
+    
+    let title = document.createElement('h5');
+    title.innerText = answers.adData;
+    title.className = 'card-title';
+    
+    const cardContainer = document.querySelector(".cardContainer")
+    card.appendChild(title);
+    cardContainer.appendChild(card);    
+
+}
+
+let initListOfTasks = () => {
+    if (cardContainer) {
+        document.getElementById('card-container').replaceWith(cardContainer);
+        return;
+    }
+
+    cardContainer = document.getElementById('card-container');
+    answers.forEach((answers) => {
+        createCard(answers);
+    });
+};
+
+initListOfTasks();
+</script>

@@ -7,7 +7,8 @@
     <link rel="stylesheet" type="text/css" href="/homePage.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6738814837544965"
      crossorigin="anonymous"></script>
-    <script type="text/javascript" src="./homePage.js"></script>
+    <script type="text/x-handlebars" src="./homePage.js"></script>
+    <script type="text/x-handlebars" src="/js/ads.js" defer></script>
     <title>Homepage</title>
 </head>
 <body>
@@ -25,6 +26,8 @@
             </div>
         </div>
     </div>
+    {{> _search}}
+    {{> _ads}}
 </body>
 </html>
 <script>

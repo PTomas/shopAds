@@ -1,0 +1,34 @@
+.search-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-color: lightgrey;
+}
+
+.search {
+    width: 40%;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border: 5px;
+    font-family: 'Work Sans', sans-serif;
+}
+
+.srchBtn {
+    width: auto;
+    height: auto;
+    border: 2px;
+    border-color: white;
+    border-radius: 10px;
+    font-family: 'Work Sans', sans-serif;
+    background-color: #389dff;
+    color: white;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.srchBtn:hover{
+    background-color: #0077ea;
+}

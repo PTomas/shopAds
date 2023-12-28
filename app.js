@@ -17,7 +17,9 @@ const router = require('./routes/auth.js');
 
 const app = express();
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
+app.use('/js', express.static(path.join(__dirname + "/public/js")));
+app.use('/css', express.static(path.join(__dirname + "/public/css")));
 
 var MemoryStore =session.MemoryStore;
 app.set('trust proxy', 1) 
@@ -45,8 +47,18 @@ app.use('/auth', require('./routes/auth.js'));
 
 app.set('views', path.join(__dirname, 'views'));
 
-app.engine('.hbs', exphbs.engine({defaultLayout: 'main', extname: '.hbs'}));
+var hbs = exphbs.create({
+  helpers: {
+    json: function (adData) { return JSON.stringify(adData); },
+  },
+  defaultLayout: 'main',
+  extname: '.hbs'
+});
+
+app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
+
+
 
 app.use(passport.initialize());
 app.use(passport.session());

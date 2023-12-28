@@ -2,9 +2,11 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const {GoogleAuth} = require('google-auth-library');
 const {google} = require('googleapis');
 const passport = require('passport');
-const express = require('express');
+const process = require('process');
+const path = require('path');
+const {authenticate} = require('@google-cloud/local-auth');;
 const readline = require('readline');
-const fs = require('fs');
+const fs = require('fs').promises;
 const User = require('./models/user.js')
 
 const adsensehost = google.adsensehost("v4.1");
@@ -17,12 +19,10 @@ const absoluteURI1 ="https://habitualbuy-b8ff67b7526e.herokuapp.com/auth/google/
 
 
 function passportConfig(passport){
-  var auths = {};
     const oauth2Client = new GoogleStrategy({
         clientID: GOOGLE_CLIENT_ID,
         clientSecret: GOOGLE_CLIENT_SECRET,
-        accessTokenURL: "https://oauth2.googleapis.com/token",
-        callbackURL: absoluteURI,
+        callbackURL: absoluteURI1,
       },
       async(accessToken, refreshToken, profile, done) => {
         const newUser = {
@@ -46,53 +46,12 @@ function passportConfig(passport){
         } catch (err) {
             console.log(err)
         }
-      
-        const TOKEN_PATH = 'token.json';
 
-        fs.readFile('credentials.json', (err, content) => {
-          if (err) return console.log('Error loading client secret file:', err);
-          authorize(JSON.parse(content), getData);
-        });
 
-      function authorize(credentials, callback){
-        const client_id = credentials.client_id;
-        const client_secret = credentials.client_secret;
-        const redirect_url = credentials.redirect_url;
-        var authClient = new google.auth.OAuth2(client_id, client_secret, redirect_url[0]);
-        authClient.credentials = credentials;
-
-        getAccessToken(authClient, callback);
-      }
-
-      function getAccessToken(authClient, callback) {
-        const authUrl = authClient.generateAuthUrl({
-          access_type: 'offline',
-          scope: 'https://www.googleapis.com/adsensehost/v4.1/accounts',
-        });
-        console.log('Authorize this app by visiting this url:', authUrl);
-        const rl = readline.createInterface({
-          input: process.stdin,
-          output: process.stdout,
-        });
-        rl.question('Enter the code from that page here: ', (code) => {
-          rl.close();
-          auth.getToken(code, (err, token) => {
-            if (err) return console.error('Error retrieving access token', err);
-            authClient.setCredentials(token);
-            // Store the token to disk for later program executions
-            fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
-              if (err) return console.error(err);
-              console.log('Token stored to', TOKEN_PATH);
-            });
-            getData(authClient);
-          });
-        });
-      }
-
-      function getData(auth){
+      function getData(authClient){
         const Data = google.adsensehost({
           version: 'v4.1',
-          auth: auth
+          auth: authClient
         });
   
         const params = {
@@ -104,10 +63,13 @@ function passportConfig(passport){
             console.log(err)
             throw err;
           }
-          console.log(res)
+          console.log(res.data)
         })
       }
+
+      module.exports = { getGoogleAuthURL }
     });
+    
       passport.serializeUser(function (user, done){
         done(null, user.id)
       })

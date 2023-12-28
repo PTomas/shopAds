@@ -20,6 +20,9 @@ const userSchema = new Schema({
     image: {
         type: String
     },
+    adData: {
+        type: String
+    }
 }, {timestamps: true});
 
 const User = mongoose.model("User", userSchema);
