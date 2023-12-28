@@ -13,7 +13,7 @@ console.log('works')
 const authClient = new google.auth.OAuth2(
   process.env.CLIENT_ID,
   process.env.CLIENT_SECRET,
-  process.env.CALLBACK_URL
+  process.env.CALLBACK_URL1
 );
 
 router.post('/google', function (req, res) {
