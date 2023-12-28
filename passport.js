@@ -22,7 +22,7 @@ function passportConfig(passport){
     const oauth2Client = new GoogleStrategy({
         clientID: GOOGLE_CLIENT_ID,
         clientSecret: GOOGLE_CLIENT_SECRET,
-        callbackURL: absoluteURI1,
+        callbackURL: absoluteURI,
       },
       async(accessToken, refreshToken, profile, done) => {
         const newUser = {
