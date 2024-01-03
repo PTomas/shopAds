@@ -10,23 +10,23 @@ require('dotenv').config();
 
 console.log('works')
 
-const authClient = new google.auth.OAuth2(
-  process.env.CLIENT_ID,
-  process.env.CLIENT_SECRET,
-  process.env.CALLBACK_URL
-);
+// const authClient = new google.auth.OAuth2(
+//   process.env.CLIENT_ID,
+//   process.env.CLIENT_SECRET,
+//   process.env.CALLBACK_URL1
+// );
 
-router.post('/google', function (req, res) {
-  const scope =['https://www.googleapis.com/auth/adwords'];
+// router.post('/google', function (req, res) {
+//   const scope =['https://www.googleapis.com/auth/adwords'];
 
-  const auth = authClient.generateAuthUrl({
-    //'offline' mode will return a refresh token which we can save in our database to access the user's data in the future
-    access_type: 'offline', 
-    scope,
-  });
+//   const auth = authClient.generateAuthUrl({
+//     //'offline' mode will return a refresh token which we can save in our database to access the user's data in the future
+//     access_type: 'offline', 
+//     scope,
+//   });
   
-  res.redirect(auth);
-})
+//   res.redirect(auth);
+// })
 
 router.post('/google', passport.authenticate('google', { scope: ['profile'] }), (req, res) => {
 })
