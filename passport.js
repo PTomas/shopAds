@@ -15,7 +15,7 @@ const GOOGLE_API_KEY = 'AIzaSyAkLooAdkWACaHPpJvA5JWd8BPJYlUOZFw';
 const GOOGLE_CLIENT_ID = '305484461229-s65eo0ucnnitc1ocaavia4uk8sbgfo5h.apps.googleusercontent.com';
 const GOOGLE_CLIENT_SECRET = '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';
 const absoluteURI = "http://localhost:3000/auth/google/callback"
-const absoluteURI1 ="http://habitualbuy-b8ff67b7526e.herokuapp.com/auth/google/callback"
+const absoluteURI1 ="https://habitualbuy-b8ff67b7526e.herokuapp.com/auth/google/callback"
 
 
 function passportConfig(passport){
